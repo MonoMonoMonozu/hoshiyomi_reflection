@@ -320,19 +320,13 @@ export default function App() {
         body: JSON.stringify({
           model: "claude-opus-4-6",
           max_tokens: 800,
-          messages: [{ role: "user", content: `「${customName}」という人物（キャラクター・有名人など）を占い師として設定します。以下のJSON形式のみで返してください。
-
-{
-  "icon": "絵文字1文字",
-  "description": "その人物らしい一言（20文字以内）",
-  "systemPrompt": "あなたは「${customName}」をイメージした占い師です。【口調】（その人物らしい話し方・口癖を具体的に）【性格】（その人物らしい性格・価値観）良い点の褒め方、改善点の指摘の仕方、ラッキーアクティビティの提案の仕方をそれぞれ1〜2文で。"
-}` }]
+          messages: [{ role: "user", content: "「" + customName + "」という人物（キャラクター・有名人など）を占い師として設定します。以下のJSON形式のみで返してください。\n\n{\n  \"icon\": \"絵文字1文字\",\n  \"description\": \"その人物らしい一言（20文字以内）\",\n  \"systemPrompt\": \"あなたは「" + customName + "」をイメージした占い師です。【口調】その人物らしい話し方・口癖を具体的に。【性格】その人物らしい性格・価値観。良い点の褒め方、改善点の指摘の仕方、ラッキーアクティビティの提案の仕方をそれぞれ1〜2文で。\"\n}" }]
         })
       });
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
       let t = text.trim();
-      const fenced = t.match(/\`\`\`json?\s*([\s\S]*?)\`\`\`/);
+      const fenced = t.match(/```json?\s*([\s\S]*?)```/);
       if (fenced) t = fenced[1].trim();
       else { const s = t.indexOf("{"); if (s !== -1) { t = t.substring(s); let d=0,e=-1; for(let i=0;i<t.length;i++){if(t[i]==="{")d++;else if(t[i]==="}"){d--;if(d===0){e=i;break;}}} if(e!==-1)t=t.substring(0,e+1); } }
       const parsed = JSON.parse(t);
