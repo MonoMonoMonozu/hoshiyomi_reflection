@@ -54,12 +54,12 @@ function extractMandalaText(raw) {
     const subcenter = Array.from(doc.querySelectorAll(".subcenter")).map(el => el.textContent?.trim()).filter(Boolean);
     const items = Array.from(doc.querySelectorAll(".item")).map(el => el.textContent?.trim()).filter(Boolean);
     let result = "";
-    if (h1) result += `【タイトル】${h1}\n`;
-    if (sub) result += `【中心目標】${sub}\n`;
-    if (goals.length) result += `【ゴール】${goals.join(" / ")}\n`;
-    if (pillars.length) result += `\n【8つのテーマ】\n${pillars.map(p => "・" + p).join("\n")}\n`;
-    if (subcenter.length) result += `\n【サブテーマ】\n${subcenter.map(p => "・" + p).join("\n")}\n`;
-    if (items.length) result += `\n【各テーマの行動指針】\n${items.map(p => "・" + p).join("\n")}\n`;
+    if (h1) result += "【タイトル】" + h1 + "\n";
+    if (sub) result += "【中心目標】" + sub + "\n";
+    if (goals.length) result += "【ゴール】" + goals.join(" / ") + "\n";
+    if (pillars.length) result += "\n【8つのテーマ】\n" + pillars.map(p => "・" + p).join("\n") + "\n";
+    if (subcenter.length) result += "\n【サブテーマ】\n" + subcenter.map(p => "・" + p).join("\n") + "\n";
+    if (items.length) result += "\n【各テーマの行動指針】\n" + items.map(p => "・" + p).join("\n") + "\n";
     return result || raw;
   } catch(e) { return raw; }
 }
@@ -69,89 +69,78 @@ const CHARACTERS = [
     id: "ruru", name: "るるるの部屋のホステス", icon: "🌸", color: "pink",
     description: "「まあ〜！素敵なのよ〜！」",
     borderClass: "border-pink-500", bgClass: "bg-pink-950", textClass: "text-pink-300", btnClass: "from-pink-700 to-fuchsia-700",
-    systemPrompt: `あなたは「るるるの部屋のホステス」という名の占い師です。花いっぱいの温かいトーク番組のホステスをイメージしてください。【口調】「〜なのよ〜」「まあ〜！」が口癖。相手を「あなた」と呼ぶ。語尾は「〜してちょうだい！」。【性格】大げさに驚き深掘りする。温かく包容力があるがハッキリ言う。自分の経験談を1〜2文添える。良い点は大げさに褒め、改善点は優しく諭す。ラッキーアクティビティには「私もねえ、昔〜をやったらすごくよかったのよ〜」と経験談を添えて。`
+    systemPrompt: "あなたは「るるるの部屋のホステス」という名の占い師です。花いっぱいの温かいトーク番組のホステスをイメージしてください。【口調】「〜なのよ〜」「まあ〜！」が口癖。相手を「あなた」と呼ぶ。語尾は「〜してちょうだい！」。【性格】大げさに驚き深掘りする。温かく包容力があるがハッキリ言う。自分の経験談を1〜2文添える。良い点は大げさに褒め、改善点は優しく諭す。ラッキーアクティビティには「私もねえ、昔〜をやったらすごくよかったのよ〜」と経験談を添えて。"
   },
   {
     id: "maruko", name: "ゆるまる小学生", icon: "👧", color: "amber",
     description: "「面倒くさいわね、でも本当のこと言うよ」",
     borderClass: "border-amber-500", bgClass: "bg-amber-950", textClass: "text-amber-300", btnClass: "from-amber-600 to-yellow-600",
-    systemPrompt: `あなたは「ゆるまる小学生」という名の占い師です。静岡の小さな町に住むゆるくて正直な小学生のキャラクターです。【口調】「〜めんどくさいわね」「まあいっか」「あたし的には」が口癖。「はぁ〜」「ったく」などのリアクション多め。【性格】面倒くさがりだが本質を突く。正直で根は優しい。やる気がなさそうで実は鋭い観察眼を持つ。おじいちゃんの俳句を「おじいちゃん 心の俳句」として締めに入れる。良い点は渋々認める「まあ…それはよかったんじゃない？めんどくさいけど認める」。改善点は「ったく、そこがねえ…面倒くさいけど言わせてよ」と渋々指摘。ラッキーアクティビティは「これだけやっときなよ、簡単だから」と最小限を勧める。`
+    systemPrompt: "あなたは「ゆるまる小学生」という名の占い師です。静岡の小さな町に住むゆるくて正直な小学生のキャラクターです。【口調】「〜めんどくさいわね」「まあいっか」「あたし的には」が口癖。「はぁ〜」「ったく」などのリアクション多め。【性格】面倒くさがりだが本質を突く。正直で根は優しい。やる気がなさそうで実は鋭い観察眼を持つ。おじいちゃんの俳句を「おじいちゃん 心の俳句」として締めに入れる。良い点は渋々認める「まあ…それはよかったんじゃない？めんどくさいけど認める」。改善点は「ったく、そこがねえ…面倒くさいけど言わせてよ」と渋々指摘。ラッキーアクティビティは「これだけやっときなよ、簡単だから」と最小限を勧める。"
   },
   {
     id: "honoo", name: "炎のインストラクター", icon: "🔥", color: "orange",
     description: "「心を燃やせ！！」",
     borderClass: "border-orange-500", bgClass: "bg-orange-950", textClass: "text-orange-300", btnClass: "from-red-700 to-orange-600",
-    systemPrompt: `あなたは「炎のインストラクター」という名の占い師です。熱血で誠実な武道の師範をイメージしてください。【口調】「うむ！」「よもやよもや」が口癖。語尾に「！！」多用。「俺」一人称、相手は「君」。【性格】真っ直ぐで誠実。弱さを否定せず受け入れる強さを持つ。「心を燃やせ」をここぞで使う。良い点は全力で肯定「素晴らしい！！君の努力は確実に実を結んでいる！！」。改善点は「伸びしろ」として激励「だが、ここにはまだ伸びしろがある！弱さを認められる者こそ強い！！」。ラッキーアクティビティは「来週の君への任務だ！！」として提示。`
+    systemPrompt: "あなたは「炎のインストラクター」という名の占い師です。熱血で誠実な武道の師範をイメージしてください。【口調】「うむ！」「よもやよもや」が口癖。語尾に「！！」多用。「俺」一人称、相手は「君」。【性格】真っ直ぐで誠実。弱さを否定せず受け入れる強さを持つ。「心を燃やせ」をここぞで使う。良い点は全力で肯定「素晴らしい！！君の努力は確実に実を結んでいる！！」。改善点は「伸びしろ」として激励「だが、ここにはまだ伸びしろがある！弱さを認められる者こそ強い！！」。ラッキーアクティビティは「来週の君への任務だ！！」として提示。"
   },
   {
     id: "necchukyodai", name: "熱血兄弟", icon: "🎙️", color: "blue",
     description: "「いいんですか？いいんです！」",
     borderClass: "border-blue-500", bgClass: "bg-blue-950", textClass: "text-blue-300", btnClass: "from-blue-700 to-cyan-700",
-    systemPrompt: `あなたは「熱血兄弟」という名の占い師です。スポーツ実況が得意な兄弟コンビをイメージしてください。二人の掛け合い形式で話してください。【兄】実況風「さあ！」「出ました！」が口癖。【弟】「いいんですか？いいんです！」が決め台詞。【性格】常にテンション高い。スポーツ実況のようなテンポ。【兄】【弟】で発言者を明示する。良い点は「【兄】素晴らしい！！【弟】いいんですか！？…いいんです！！」。改善点は「【弟】伸びしろがあるんですか？いいんです！！可能性です！！」。最後は必ず「いいんですか？いいんです！！」で締める。`
+    systemPrompt: "あなたは「熱血兄弟」という名の占い師です。スポーツ実況が得意な兄弟コンビをイメージしてください。二人の掛け合い形式で話してください。【兄】実況風「さあ！」「出ました！」が口癖。【弟】「いいんですか？いいんです！」が決め台詞。【性格】常にテンション高い。スポーツ実況のようなテンポ。【兄】【弟】で発言者を明示する。良い点は「【兄】素晴らしい！！【弟】いいんですか！？…いいんです！！」。改善点は「【弟】伸びしろがあるんですか？いいんです！！可能性です！！」。最後は必ず「いいんですか？いいんです！！」で締める。"
   },
   {
     id: "kashiwa", name: "松戸デラックス", icon: "👑", color: "purple",
     description: "「あんたの言いたいことはわかってるの」",
     borderClass: "border-purple-500", bgClass: "bg-purple-950", textClass: "text-purple-300", btnClass: "from-purple-700 to-pink-700",
-    systemPrompt: `あなたは「松戸デラックス」という名の占い師です。千葉県柏市出身の毒舌で本音を語るキャラクターです。【口調】「あんたの言いたいことはわかってるの」「そういうことでしょ」が口癖。相手を「あなた」と呼ぶ。【性格】相手の言いたいことを先読みして核心を突く。毒舌だが深い愛情がある。回りくどい説明は不要と言わんばかりに本質を先に言う。良い点は「それがあなたの強みでしょ、わかってるわよ」と先読みして肯定。改善点は「あなたが言いにくいことを代わりに言ってあげる、ここよここ」と核心を突く。ラッキーアクティビティは「あなたが本当はやりたいのはこれでしょ」と看破して提案。`
+    systemPrompt: "あなたは「松戸デラックス」という名の占い師です。千葉県柏市出身の毒舌で本音を語るキャラクターです。【口調】「あんたの言いたいことはわかってるの」「そういうことでしょ」が口癖。相手を「あなた」と呼ぶ。【性格】相手の言いたいことを先読みして核心を突く。毒舌だが深い愛情がある。回りくどい説明は不要と言わんばかりに本質を先に言う。良い点は「それがあなたの強みでしょ、わかってるわよ」と先読みして肯定。改善点は「あなたが言いにくいことを代わりに言ってあげる、ここよここ」と核心を突く。ラッキーアクティビティは「あなたが本当はやりたいのはこれでしょ」と看破して提案。"
   },
   {
     id: "isegahama", name: "伊勢ヶ浜幽聴", icon: "🪷", color: "green",
     description: "「ほほ、人生とはそういうものじゃ」",
     borderClass: "border-green-500", bgClass: "bg-green-950", textClass: "text-green-300", btnClass: "from-green-700 to-teal-700",
-    systemPrompt: `あなたは「伊勢ヶ浜幽聴」という名の占い師です。瀬戸内の島に住む老齢の尼僧・作家をイメージしてください。【口調】「〜じゃ」「〜のう」「ほほ」が口癖。相手を「あなた」と呼ぶ。穏やかで深みのある語り口。【性格】人生経験豊富で温かく受け入れる。愛と慈悲を軸に語る。恋愛・人間関係に深い共感を示す。良い点は「ほほ、それは素晴らしいことじゃ」と温かく肯定。改善点は「人生とはそういうもの、焦らずともよい」と諭す。ラッキーアクティビティは「これをやってごらん、心が軽くなるじゃろう」と優しく提案。人生の深みを感じさせる言葉を添える。`
+    systemPrompt: "あなたは「伊勢ヶ浜幽聴」という名の占い師です。瀬戸内の島に住む老齢の尼僧・作家をイメージしてください。【口調】「〜じゃ」「〜のう」「ほほ」が口癖。相手を「あなた」と呼ぶ。穏やかで深みのある語り口。【性格】人生経験豊富で温かく受け入れる。愛と慈悲を軸に語る。恋愛・人間関係に深い共感を示す。良い点は「ほほ、それは素晴らしいことじゃ」と温かく肯定。改善点は「人生とはそういうもの、焦らずともよい」と諭す。ラッキーアクティビティは「これをやってごらん、心が軽くなるじゃろう」と優しく提案。人生の深みを感じさせる言葉を添える。"
   },
 ];
 
-const ANALYSIS_TEMPLATE = `あなたは占い師として、「活動方針」と「活動ログ」を照合し振り返りフィードバックを行います。
-
-### 活動方針・目標
-\`\`\`
-{{MANDALA}}
-\`\`\`
-
-### 活動ログ（{{DATE_FROM}} 〜 {{DATE_TO}}）
-\`\`\`
-{{LOG}}
-\`\`\`
-
-以下のJSON形式「のみ」を出力してください。JSON以外のテキストは不要です。
-
-\`\`\`json
-{
-  "summary": "【ここに総評を記入】",
-  "insight": "【ここに洞察を記入】",
-  "scores": [
-    { "category": "走ること", "score": 0 },
-    { "category": "心のケア", "score": 0 },
-    { "category": "クリエイティブ", "score": 0 },
-    { "category": "学びと探求", "score": 0 },
-    { "category": "仕事・DX", "score": 0 },
-    { "category": "人と繋がり", "score": 0 },
-    { "category": "旅とリセット", "score": 0 },
-    { "category": "文化と感性", "score": 0 }
-  ],
-  "good_points": [
-    { "title": "【良かった点1のタイトル】", "detail": "【詳細コメント】" },
-    { "title": "【良かった点2のタイトル】", "detail": "【詳細コメント】" }
-  ],
-  "improve_points": [
-    { "title": "【改善点のタイトル】", "detail": "【詳細コメント】" }
-  ],
-  "lucky_activity": {
-    "title": "【ラッキーアクティビティ名】",
-    "description": "【具体的な行動と励まし】",
-    "reasons": ["【理由1】", "【理由2】", "【理由3】"]
-  }
-}
-\`\`\`
-
-制約：ポジティブ比率7:3。ログの具体的内容に必ず言及する。ラッキーアクティビティは明日からすぐできる行動1つ。占い風演出を加える。scoresのカテゴリは活動方針から抽出した実際のカテゴリ名を使うこと。`;
+const ANALYSIS_TEMPLATE = "あなたは占い師として、「活動方針」と「活動ログ」を照合し振り返りフィードバックを行います。\n\n" +
+"### 活動方針・目標\n" +
+"{{MANDALA}}\n\n" +
+"### 活動ログ（{{DATE_FROM}} 〜 {{DATE_TO}}）\n" +
+"{{LOG}}\n\n" +
+"以下のJSON形式「のみ」を出力してください。JSON以外のテキストは不要です。\n\n" +
+"{\n" +
+'  "summary": "【ここに総評を記入】",\n' +
+'  "insight": "【ここに洞察を記入】",\n' +
+'  "scores": [\n' +
+'    { "category": "走ること", "score": 0 },\n' +
+'    { "category": "心のケア", "score": 0 },\n' +
+'    { "category": "クリエイティブ", "score": 0 },\n' +
+'    { "category": "学びと探求", "score": 0 },\n' +
+'    { "category": "仕事・DX", "score": 0 },\n' +
+'    { "category": "人と繋がり", "score": 0 },\n' +
+'    { "category": "旅とリセット", "score": 0 },\n' +
+'    { "category": "文化と感性", "score": 0 }\n' +
+'  ],\n' +
+'  "good_points": [\n' +
+'    { "title": "【良かった点1のタイトル】", "detail": "【詳細コメント】" },\n' +
+'    { "title": "【良かった点2のタイトル】", "detail": "【詳細コメント】" }\n' +
+'  ],\n' +
+'  "improve_points": [\n' +
+'    { "title": "【改善点のタイトル】", "detail": "【詳細コメント】" }\n' +
+'  ],\n' +
+'  "lucky_activity": {\n' +
+'    "title": "【ラッキーアクティビティ名】",\n' +
+'    "description": "【具体的な行動と励まし】",\n' +
+'    "reasons": ["【理由1】", "【理由2】", "【理由3】"]\n' +
+'  }\n' +
+"}\n\n" +
+"制約：ポジティブ比率7:3。ログの具体的内容に必ず言及する。ラッキーアクティビティは明日からすぐできる行動1つ。占い風演出を加える。scoresのカテゴリは活動方針から抽出した実際のカテゴリ名を使うこと。";
 
 function getDateStr(daysAgo) {
   const d = new Date();
   d.setDate(d.getDate() - daysAgo);
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 }
 
 function StepNav({ step }) {
@@ -227,7 +216,7 @@ function FileDropArea({ onLoad, accept, hint, value, onChange }) {
       let allText = "";
       wb.SheetNames.forEach(name => {
         const csv = XLSX_LIB.utils.sheet_to_csv(wb.Sheets[name]);
-        if (csv.trim()) allText += `=== シート: ${name} ===\n${csv}\n\n`;
+        if (csv.trim()) allText += "=== シート: " + name + " ===\n" + csv + "\n\n";
       });
       onLoad(allText);
     } else {
@@ -282,13 +271,13 @@ function RadarChart({ scores, color }) {
     green: ["rgba(74,222,128,0.3)","#4ade80"]
   };
   const [fill, stroke] = colors[color] || colors.blue;
-  const pts = scores.map((s,i) => { const p = pt(i,s.score); return `${p.x},${p.y}`; }).join(" ");
+  const pts = scores.map((s,i) => { const p = pt(i,s.score); return p.x + "," + p.y; }).join(" ");
   return (
     <svg viewBox="0 0 280 280" className="w-full max-w-xs mx-auto">
       <rect x="0" y="0" width="280" height="280" fill="#09090b" rx="12"/>
       {[...Array(levels)].map((_,l) => {
         const r2=(radius*(l+1))/levels;
-        const p2=scores.map((_,i)=>{const a=step*i-Math.PI/2;return `${center+r2*Math.cos(a)},${center+r2*Math.sin(a)}`;}).join(" ");
+        const p2=scores.map((_,i)=>{const a=step*i-Math.PI/2;return (center+r2*Math.cos(a)) + "," + (center+r2*Math.sin(a));}).join(" ");
         return <polygon key={l} points={p2} fill="none" stroke="#27272a" strokeWidth="1"/>;
       })}
       {scores.map((_,i) => { const p=pt(i,100); return <line key={i} x1={center} y1={center} x2={p.x} y2={p.y} stroke="#27272a" strokeWidth="0.8"/>; })}
@@ -320,11 +309,11 @@ function App() {
 
   const buildPrompt = () => {
     if (!char) return "";
-    return `【システムプロンプト】\n${char.systemPrompt}\n\n---\n\n${ANALYSIS_TEMPLATE
+    return "【システムプロンプト】\n" + char.systemPrompt + "\n\n---\n\n" + ANALYSIS_TEMPLATE
       .replace("{{MANDALA}}", extractMandalaText(mandala))
       .replace("{{LOG}}", log)
       .replace("{{DATE_FROM}}", dateFrom)
-      .replace("{{DATE_TO}}", dateTo)}`;
+      .replace("{{DATE_TO}}", dateTo);
   };
 
   const generateCustomChar = async () => {
@@ -334,8 +323,8 @@ function App() {
       setCustomPreview({
         id: "custom", name: customName, icon: "✨", color: "blue",
         borderClass: "border-cyan-500", bgClass: "bg-cyan-950", textClass: "text-cyan-300", btnClass: "from-cyan-700 to-blue-700",
-        description: `「${customName}」風の占い師`,
-        systemPrompt: `あなたは「${customName}」をイメージした占い師です。${customName}らしい口調・性格・価値観で振り返りフィードバックを行ってください。その人物らしい言葉遣いと視点で、良い点は褒め、改善点は率直に指摘し、ラッキーアクティビティを提案してください。`
+        description: "「" + customName + "」風の占い師",
+        systemPrompt: "あなたは「" + customName + "」をイメージした占い師です。" + customName + "らしい口調・性格・価値観で振り返りフィードバックを行ってください。その人物らしい言葉遣いと視点で、良い点は褒め、改善点は率直に指摘し、ラッキーアクティビティを提案してください。"
       });
       return;
     }
@@ -358,7 +347,7 @@ function App() {
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
       let t = text.trim();
-      const fenced = t.match(/```json?\s*([\s\S]*?)```/);
+      const fenced = t.match(new RegExp("```json?\\s*([\\s\\S]*?)```"));
       if (fenced) t = fenced[1].trim();
       else { const s = t.indexOf("{"); if (s !== -1) { t = t.substring(s); let d=0,e=-1; for(let i=0;i<t.length;i++){if(t[i]==="{")d++;else if(t[i]==="}"){d--;if(d===0){e=i;break;}}} if(e!==-1)t=t.substring(0,e+1); } }
       const parsed = JSON.parse(t);
@@ -368,15 +357,15 @@ function App() {
         icon: parsed.icon || "✨",
         color: "blue",
         borderClass: "border-cyan-500", bgClass: "bg-cyan-950", textClass: "text-cyan-300", btnClass: "from-cyan-700 to-blue-700",
-        description: parsed.description || `「${customName}」風の占い師`,
-        systemPrompt: parsed.systemPrompt || `あなたは「${customName}」をイメージした占い師です。${customName}らしい口調で振り返りフィードバックを行ってください。`
+        description: parsed.description || "「" + customName + "」風の占い師",
+        systemPrompt: parsed.systemPrompt || "あなたは「" + customName + "」をイメージした占い師です。" + customName + "らしい口調で振り返りフィードバックを行ってください。"
       });
     } catch(e) {
       setCustomPreview({
         id: "custom", name: customName, icon: "✨", color: "blue",
         borderClass: "border-cyan-500", bgClass: "bg-cyan-950", textClass: "text-cyan-300", btnClass: "from-cyan-700 to-blue-700",
-        description: `「${customName}」風の占い師`,
-        systemPrompt: `あなたは「${customName}」をイメージした占い師です。${customName}らしい口調・性格・価値観で振り返りフィードバックを行ってください。`
+        description: "「" + customName + "」風の占い師",
+        systemPrompt: "あなたは「" + customName + "」をイメージした占い師です。" + customName + "らしい口調・性格・価値観で振り返りフィードバックを行ってください。"
       });
     } finally {
       setIsGeneratingChar(false);
@@ -406,14 +395,14 @@ function App() {
       });
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error?.message || `APIエラー: ${res.status}`);
+        throw new Error(err.error?.message || "APIエラー: " + res.status);
       }
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
       setResultJson(text);
       // そのままパース
       let t = text.trim();
-      const fenced = t.match(/```json?\s*([\s\S]*?)```/);
+      const fenced = t.match(new RegExp("```json?\\s*([\\s\\S]*?)```"));
       if (fenced) { t = fenced[1].trim(); }
       else {
         const start = t.indexOf("{");
@@ -440,8 +429,8 @@ function App() {
     setParseError("");
     try {
       let text = resultJson.trim();
-      // ```json ... ``` ブロックがあれば中身だけ取り出す
-      const fenced = text.match(/```json?\s*([\s\S]*?)```/);
+      // json/markdown ブロックがあれば中身だけ取り出す
+      const fenced = text.match(new RegExp("```json?\\s*([\\s\\S]*?)```"));
       if (fenced) {
         text = fenced[1].trim();
       } else {
