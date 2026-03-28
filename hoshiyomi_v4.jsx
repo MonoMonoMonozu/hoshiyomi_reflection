@@ -170,7 +170,7 @@ function CopyButton({ text }) {
   );
 }
 
-function FileDropArea({ onLoad, accept, hint, value, onChange }) {
+function FileDropArea({ onLoad, accept, hint, value, onChange, warnLimit = 10000 }) {
   const [dragging, setDragging] = useState(false);
   const [fileName, setFileName] = useState("");
   const inputRef = useRef();
@@ -220,7 +220,29 @@ function FileDropArea({ onLoad, accept, hint, value, onChange }) {
       <textarea value={value} onChange={e => onChange(e.target.value)}
         placeholder="テキストをここに貼り付け..."
         className="w-full h-40 bg-gray-900 border border-gray-700 rounded-xl p-4 text-white text-sm resize-none focus:outline-none focus:border-purple-500 placeholder-gray-600"/>
-      {value && <p className="text-gray-500 text-xs">{value.length} 文字</p>}
+      {value && (() => {
+        const isHtml = value.trim().startsWith("<");
+        const effective = isHtml ? extractMandalaText(value) : value;
+        const effLen = effective.length;
+        const over15 = effLen > warnLimit * 1.5;
+        const over = effLen > warnLimit;
+        return (
+          <div className="space-y-1">
+            <p className={`text-xs font-bold ${over ? "text-red-400" : "text-gray-500"}`}>
+              {isHtml
+                ? `HTMLを自動圧縮 → 約${effLen.toLocaleString()}字でAIに送信`
+                : `${effLen.toLocaleString()} 文字`}
+              {over15 && " ⚠️ 多すぎます！タイムアウトの可能性があります"}
+              {over && !over15 && " ⚠️ やや多めです。削減を検討してください"}
+            </p>
+            {over && (
+              <p className="text-xs text-red-300 bg-red-950 border border-red-800 rounded-lg px-3 py-2">
+                目安：目標 5,000字以内 ／ ログ 8,000字以内が快適です
+              </p>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -452,6 +474,7 @@ export default function App() {
               value={mandala}
               onChange={setMandala}
               onLoad={setMandala}
+              warnLimit={5000}
             />
             <NavButtons onBack={() => setStep(1)} onNext={() => setStep(3)} nextDisabled={mandala.trim().length===0}/>
           </div>
@@ -468,6 +491,7 @@ export default function App() {
               value={log}
               onChange={setLog}
               onLoad={setLog}
+              warnLimit={8000}
             />
             <NavButtons onBack={() => setStep(2)} onNext={() => setStep(4)} nextDisabled={log.trim().length===0}/>
           </div>
